@@ -5,6 +5,7 @@
 use crate::{ecolor::*, emath::*, FontFamily, FontId, Response, RichText, WidgetText};
 use epaint::{Rounding, Shadow, Stroke};
 use std::collections::BTreeMap;
+use epaint::FontFamily::ProportionalBold;
 
 // ----------------------------------------------------------------------------
 
@@ -681,7 +682,7 @@ pub fn default_text_styles() -> BTreeMap<TextStyle, FontId> {
         (TextStyle::Small, FontId::new(9.0, Proportional)),
         (TextStyle::Body, FontId::new(12.5, Proportional)),
         (TextStyle::Button, FontId::new(12.5, Proportional)),
-        (TextStyle::Heading, FontId::new(18.0, Proportional)),
+        (TextStyle::Heading, FontId::new(23.0, ProportionalBold)),
         (TextStyle::Monospace, FontId::new(12.0, Monospace)),
     ]
     .into()
@@ -708,10 +709,10 @@ impl Default for Style {
 impl Default for Spacing {
     fn default() -> Self {
         Self {
-            item_spacing: vec2(8.0, 3.0),
+            item_spacing: vec2(10.0, 5.0),
             window_margin: Margin::same(6.0),
             menu_margin: Margin::same(6.0),
-            button_padding: vec2(4.0, 1.0),
+            button_padding: vec2(8.0, 4.0),
             indent: 18.0, // match checkbox/radio-button with `button_padding.x + icon_width + icon_spacing`
             interact_size: vec2(40.0, 18.0),
             slider_width: 100.0,
@@ -751,7 +752,7 @@ impl Visuals {
             selection: Selection::default(),
             hyperlink_color: Color32::from_rgb(90, 170, 255),
             faint_bg_color: Color32::from_additive_luminance(5), // visible, but barely so
-            extreme_bg_color: Color32::from_gray(10),            // e.g. TextEdit background
+            extreme_bg_color: Color32::from_rgb(0x28, 0x27, 0x28),            // e.g. TextEdit background
             code_bg_color: Color32::from_gray(64),
             warn_fg_color: Color32::from_rgb(255, 143, 0), // orange
             error_fg_color: Color32::from_rgb(255, 0, 0),  // red
@@ -759,7 +760,7 @@ impl Visuals {
             window_rounding: Rounding::same(6.0),
             window_shadow: Shadow::big_dark(),
             window_fill: Color32::from_gray(27),
-            window_stroke: Stroke::new(1.0, Color32::from_gray(60)),
+            window_stroke: Stroke::NONE,
 
             menu_rounding: Rounding::same(6.0),
 
@@ -839,41 +840,41 @@ impl Widgets {
             noninteractive: WidgetVisuals {
                 weak_bg_fill: Color32::from_gray(27),
                 bg_fill: Color32::from_gray(27),
-                bg_stroke: Stroke::new(1.0, Color32::from_gray(60)), // separators, indentation lines
-                fg_stroke: Stroke::new(1.0, Color32::from_gray(140)), // normal text color
-                rounding: Rounding::same(2.0),
+                bg_stroke: Default::default(), // separators, indentation lines
+                fg_stroke: Stroke::new(1.0, Color32::WHITE), // normal text color
+                rounding: Rounding::same(5.0),
                 expansion: 0.0,
             },
             inactive: WidgetVisuals {
-                weak_bg_fill: Color32::from_gray(60), // button background
+                weak_bg_fill: Color32::from_rgb(0x4D, 0x4D, 0x4D), // button background
                 bg_fill: Color32::from_gray(60),      // checkbox background
                 bg_stroke: Default::default(),
-                fg_stroke: Stroke::new(1.0, Color32::from_gray(180)), // button text
-                rounding: Rounding::same(2.0),
+                fg_stroke: Stroke::new(1.0, Color32::WHITE), // button text
+                rounding: Rounding::same(5.0),
                 expansion: 0.0,
             },
             hovered: WidgetVisuals {
                 weak_bg_fill: Color32::from_gray(70),
                 bg_fill: Color32::from_gray(70),
-                bg_stroke: Stroke::new(1.0, Color32::from_gray(150)), // e.g. hover over window edge or button
-                fg_stroke: Stroke::new(1.5, Color32::from_gray(240)),
-                rounding: Rounding::same(3.0),
-                expansion: 1.0,
+                bg_stroke: Default::default(), // e.g. hover over window edge or button
+                fg_stroke: Stroke::new(1.0, Color32::WHITE),
+                rounding: Rounding::same(5.0),
+                expansion: 0.0,
             },
             active: WidgetVisuals {
                 weak_bg_fill: Color32::from_gray(55),
                 bg_fill: Color32::from_gray(55),
-                bg_stroke: Stroke::new(1.0, Color32::WHITE),
-                fg_stroke: Stroke::new(2.0, Color32::WHITE),
-                rounding: Rounding::same(2.0),
-                expansion: 1.0,
+                bg_stroke: Default::default(),
+                fg_stroke: Stroke::new(1.0, Color32::WHITE),
+                rounding: Rounding::same(5.0),
+                expansion: 0.5,
             },
             open: WidgetVisuals {
                 weak_bg_fill: Color32::from_gray(27),
                 bg_fill: Color32::from_gray(27),
-                bg_stroke: Stroke::new(1.0, Color32::from_gray(60)),
-                fg_stroke: Stroke::new(1.0, Color32::from_gray(210)),
-                rounding: Rounding::same(2.0),
+                bg_stroke: Default::default(),
+                fg_stroke: Stroke::new(1.0, Color32::WHITE),
+                rounding: Rounding::same(5.0),
                 expansion: 0.0,
             },
         }

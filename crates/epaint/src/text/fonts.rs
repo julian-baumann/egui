@@ -75,6 +75,11 @@ pub enum FontFamily {
     /// Proportional fonts are easier to read and should be the preferred choice in most situations.
     Proportional,
 
+    /// A font where some characters are wider than other (e.g. 'w' is wider than 'i').
+    ///
+    /// Proportional fonts are easier to read and should be the preferred choice in most situations.
+    ProportionalBold,
+
     /// A font where each character is the same width (`w` is the same width as `i`).
     ///
     /// Useful for code snippets, or when you need to align numbers or text.
@@ -103,6 +108,7 @@ impl std::fmt::Display for FontFamily {
         match self {
             Self::Monospace => "Monospace".fmt(f),
             Self::Proportional => "Proportional".fmt(f),
+            Self::ProportionalBold => "ProportionalBold".fmt(f),
             Self::Name(name) => (*name).fmt(f),
         }
     }
@@ -291,6 +297,14 @@ impl Default for FontDefinitions {
             ),
         );
 
+        font_data.insert(
+            "inter-regular".to_owned(),
+            FontData::from_static(include_bytes!("../../fonts/Inter-Regular.ttf")));
+
+        font_data.insert(
+            "inter-bold".to_owned(),
+            FontData::from_static(include_bytes!("../../fonts/Inter-Bold.ttf")));
+
         families.insert(
             FontFamily::Monospace,
             vec![
@@ -300,9 +314,21 @@ impl Default for FontDefinitions {
                 "emoji-icon-font".to_owned(),
             ],
         );
+
         families.insert(
             FontFamily::Proportional,
             vec![
+                "inter-regular".to_owned(),
+                "Ubuntu-Light".to_owned(),
+                "NotoEmoji-Regular".to_owned(),
+                "emoji-icon-font".to_owned(),
+            ],
+        );
+
+        families.insert(
+            FontFamily::ProportionalBold,
+            vec![
+                "inter-bold".to_owned(),
                 "Ubuntu-Light".to_owned(),
                 "NotoEmoji-Regular".to_owned(),
                 "emoji-icon-font".to_owned(),
